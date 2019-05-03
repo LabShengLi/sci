@@ -300,6 +300,29 @@ void Update(real *vec_u, real *vec_v, real *vec_error, int label)
 	for (int c = 0; c != dim; c++) vec_v[c] += g * vec_u[c];
 }
 
+//This function is added as part of SCI package
+void JointUpdate(real *vec_u, real *vec_v, real *vec_context, real *vec_error, int label)
+{
+	//The idea is to learn one gradient for both 1st order and 2nd order embedding
+	// will alwayes update vect_err and vec_v in this function using the combined gradient 
+	real x=0,g=0;
+
+	// calculate gradient from 1st order
+	for (int c = 0; c != dim; c++) x += vec_u[c] * vec_v[c];
+	g += (label - FastSigmoid(x)) * rho;
+
+	// calculate gradient from 2nd order
+	for (int c = 0; c != dim; c++) x += vec_u[c] * vec_context[c];
+	g += (label - FastSigmoid(x)) * rho;
+
+	//update embeddings for v and context 
+	for (int c = 0; c != dim; c++) vec_error[c] += g * vec_v[c];
+	for (int c = 0; c != dim; c++) vec_error[c] += g * vec_context[c];
+
+	for (int c = 0; c != dim; c++) vec_v[c] += g * vec_u[c];
+	for (int c = 0; c != dim; c++) vec_context[c] += g * vec_u[c];
+}
+
 void *TrainLINEThread(void *id)
 {
 	long long u, v, lu, lv, target, label;
@@ -345,6 +368,7 @@ void *TrainLINEThread(void *id)
 			lv = target * dim;
 			if (order == 1) Update(&emb_vertex[lu], &emb_vertex[lv], vec_error, label);
 			if (order == 2) Update(&emb_vertex[lu], &emb_context[lv], vec_error, label);
+			if (order == 3) JointUpdate(&emb_vertex[lu], &emb_vertex[lv],&emb_context[lv],vec_error,label);
 		}
 		for (int c = 0; c != dim; c++) emb_vertex[c + lu] += vec_error[c];
 
@@ -372,9 +396,9 @@ void TrainLINE() {
 	long a;
 	pthread_t *pt = (pthread_t *)malloc(num_threads * sizeof(pthread_t));
 
-	if (order != 1 && order != 2)
+	if (order != 1 && order != 2 && order!=3)
 	{
-		printf("Error: order should be eighther 1 or 2!\n");
+		printf("Error: order should be eighther 1, 2 or 3!\n");
 		exit(1);
 	}
 	printf("--------------------------------\n");
