@@ -19,6 +19,7 @@ class HicData:
 		self.name =  name
 		self.ordered_pairs = []
 		self.embedding_mode = "oe"
+		self.interchrom_contact_matrix = []
 
 
 	def get_chromosomes_bin_counts(self,chrsize_file):
@@ -151,3 +152,31 @@ class HicData:
 					oF.write("%d\t%d\t%f\n"%(node2,node1,value))
 		
 
+	def write_GW_matrix(self,mat_file,cis=False):
+		rows = []
+		for i in range(1,23):
+				chrom1 = "chr%d"%i
+				cols = []
+				for j in range(1,23):
+						chrom2 = "chr%d"%j
+						if (i==j):
+								if cis:
+										cols.append(self.contact_matrices[(chrom1,chrom1)])
+								else:
+										size = self.dChrBins[chrom1]
+										cols.append(np.zeros((size,size)))
+						else:
+								try:
+										cols.append(self.contact_matrices[(chrom1,chrom2)])
+								except KeyError:
+										try:
+												cols.append(self.contact_matrices[(chrom2,chrom1)].T)
+										except KeyError:
+												print "Can not find matrix for %s %s, will add zeroes to GW matrix"%(chrom1,chrom2)
+												row = self.dChrBins[chrom1]
+												col = self.dChrBins[chrom2]
+												cols.append(np.zeros((row,col)))
+				row = np.concatenate(cols,axis=1)
+				rows.append(row)
+		self.interchrom_contact_matrix = np.concatenate(rows,axis=0)
+		np.savetxt(mat_file,self.interchrom_contact_matrix,delimiter=",")

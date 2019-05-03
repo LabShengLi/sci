@@ -32,25 +32,40 @@ def run_LINE(inFile,samples,mode):
 	mode: can be 1,2,both
 	'''
 
-	if mode!="both":
+
+	if mode == "both_combined":
+		outFile = '%s_order_3_samples_%dM.embedding'%(inFile.split(".")[0],samples)
+		command = 'bin/LINE/line_new -train %s -order 3 -samples %d -output %s'%(inFile,samples,outFile)
+		tOutput = _LaunchJob(command)
+		if tOutput[1]!='':
+			sys.exit(tOutput[1])
+		print outFile
+		return outFile
+	
+	elif mode=="1" or mode=="2":
 		outFile = '%s_order_%s_samples_%dM.embedding'%(inFile.split(".")[0],mode,samples)
 		command = 'bin/LINE/line -train %s -order %s -samples %d -output %s'%(inFile,mode,samples,outFile)
 		tOutput = _LaunchJob(command)
 		if tOutput[1]!='':
 			sys.exit(tOutput[1])
 		return outFile
-	else:
+	
+	elif mode == "both":
 		#run line for both 1 and 2 orders
 		outFile1 = '%s_order_1_samples_%dM.embedding'%(inFile.split(".")[0],samples)
 		command = 'bin/LINE/line -train %s -order 1 -samples %d -output %s'%(inFile,samples,outFile1)
 		tOutput = _LaunchJob(command)
 		if tOutput[1]!='':
 			sys.exit(tOutput[1])
+		outFile2 = '%s_order_2_samples_%dM.embedding'%(inFile.split(".")[0],samples)
 		command = 'bin/LINE/line -train %s -order 2 -samples %d -output %s'%(inFile,samples,outFile2)
 		_LaunchJob(command)
 		if tOutput[1]!='':
 			sys.exit(tOutput[1])
 		return (outFile1,outFile2)
+	else:
+		print "%s mode is not supported"%(mode)
+		sys.exit(1)
 
 
 

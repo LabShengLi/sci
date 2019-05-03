@@ -24,6 +24,7 @@ def run_sci():
 					type=str,default="1")
 	optional.add_argument("-s","--samples",action="store",dest="samples",help="Number of edges to sample in millions order from the graph. Default: 25",type=int,default=25)
 	optional.add_argument("-k","--clusters",action="store",dest="clusters",help="Nubmer of sub-compartments to be predicted. Default: 5",type=int,default=5)
+	optional.add_argument("--adj",action="store",dest="adj_matrix",help="Adjaceny matrix file of the HiC graph",default=None,type=str)
 
 	oArgs = parser.parse_args()
 	myobject = HicData(oArgs.res,oArgs.name)
@@ -31,6 +32,9 @@ def run_sci():
 	myobject.load_interaction_data(oArgs.infile)
 	hic_graph = myobject.write_inter_chrom_graph()
 	GW_metadata = myobject.get_bins_info()
+
+	if oArgs.adj_matrix!=None:
+		myobject.write_GW_matrix(oArgs.adj_matrix)
 
 	predictor = Compartments(oArgs.name,GW_metadata)
 	predictor.predict_subcompartents(hic_graph,oArgs.order,oArgs.samples,oArgs.clusters)
