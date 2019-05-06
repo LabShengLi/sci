@@ -2,8 +2,8 @@ import sys
 import argparse
 
 
-from sci.hic import HicData
-from sci.Compartments import Compartments
+from .hic import HicData
+from .Compartments import Compartments
 
 
 
