@@ -82,6 +82,15 @@ def run_sci():
                           default=None,
                           type=str)
 
+
+    optional.add_argument("--alpha",
+                          action="store",
+                          dest="alpha",
+                          help=("Weight for graph embeddine optimization"
+                                " Default: 5"),
+                          type=float,
+                          default=0.5)
+
     oArgs = parser.parse_args()
     myobject = HicData(oArgs.res, oArgs.name)
     myobject.initialize(oArgs.genome_size)

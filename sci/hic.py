@@ -19,7 +19,7 @@ class HicData:
         self.dChrBins = {}
         self.name = name
         self.ordered_pairs = []
-        self.embedding_mode = "oe"
+        self.embedding_mode = None
         self.interchrom_contact_matrix = []
 
     def get_chromosomes_bin_counts(self, chrsize_file):
