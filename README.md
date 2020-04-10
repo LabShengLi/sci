@@ -13,17 +13,45 @@ SCI is a program to identify sub-compartments from HiC data. SCI utilizes graph 
 * python 2.7
 
 **Python Libraries**
-* [scikit-learn] >=0.19.0 
+* [scikit-learn] >=0.19.0, <= 0.20
 * [Numpy] >= 1.15
 * [tqdm]>=4.24
+
+`Scikit-learn 0.20 was the last version to support Python 2.7 and Python 3.4. Scikit-learn now requires Python 3.5 or newer.`  
 
 **C++ libraries**
 * [GSL]
 
+### using Conda  
+
+use conda-forge channel  
+
+```sh
+conda config --add channels conda-forge
+
+# 
+conda create -n sci_env python=2.7
+
+# once created
+conda activate sci_env
+
+# install own compilers
+conda install compilers
+ 
+# save your env
+mkdir -p envs
+conda env export >envs/sci_env.yml
+
+```
+
 ## Installation 
 
 ```sh
-$ python setup.py
+$ python setup.py install
+
+# clean
+$ python setup.py clean
+
 ```
 ## Input format
 
@@ -76,6 +104,9 @@ SCI output sub-compartments annotation into BED format with the following fields
 
 
 ## Test run
+
+`IS MISSING`
+
 To preform test run for SCI please follow the following steps:
 1. Go the Input_sample directory
 ```sh
