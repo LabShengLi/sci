@@ -37,6 +37,9 @@ conda activate sci_env
 
 # install own compilers
 conda install compilers
+
+# install GSL
+conda install gsl
  
 # save your env
 mkdir -p envs
