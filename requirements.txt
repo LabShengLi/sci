@@ -1,0 +1,8 @@
+# Scikit-learn 0.20 was the last version to support Python 2.7 and Python 3.4. Scikit-learn now requires Python 3.5 or newer.
+#scikit-learn >= 0.18
+scikit-learn > 0.18, < 0.21
+# last numpy release tosupport Python 2.7: see https://docs.scipy.org/doc/numpy/release.html#numpy-1-16-0-release-notes
+Numpy <=1.16.0
+# The last SciPy version to do so is SciPy 1.2.x: https://www.scipy.org/scipylib/faq.html#do-numpy-and-scipytill-support-python-2-7
+scipy <=1.2
+tqdm

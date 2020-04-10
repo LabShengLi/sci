@@ -1,3 +1,0 @@
-scikit-learn >= 0.18
-Numpy
-tqdm
