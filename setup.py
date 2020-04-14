@@ -7,12 +7,16 @@ PACKAGE_NAME = 'sci'
 
 VERSION = '0.1.0'
 
-INCPATH="/opt/share/FLOCAD/userspace/jtran1/miniconda3/envs/sci_env/include"
-LIBPATH="/opt/share/FLOCAD/userspace/jtran1/miniconda3/envs/sci_env/lib"
+
+CONDA_PATH =  os.getenv("CONDA_PREFIX")
+INCPATH = os.path.join(CONDA_PATH,"include")
+LIBPATH=os.path.join(CONDA_PATH,"lib")
+
+
 LIBS="-lgsl -lgslcblas -lpthread -L{}".format(LIBPATH)
 
 def compile_line():
-    compile_command = ("g++ -I{} LINE/line.cpp -o LINE/line {}".format(INCPATH, LIBS))
+    compile_command = ("g++ LINE/line.cpp -I{}  -o LINE/line {}".format(INCPATH,LIBS))
     return_code = call(compile_command.split())
     if return_code != 0:
         sys.exit(("LINE compilation has failed."
