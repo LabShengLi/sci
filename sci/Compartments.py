@@ -41,7 +41,7 @@ class Compartments:
             data = preprocessing.normalize(data, norm='l2')
 
         # cluster embedding
-        data = preprocessing.scale(data)
+        #data = preprocessing.scale(data)
         model = KMeans(n_clusters=k)
         model.fit(data)
         GW_compartments = model.predict(data)

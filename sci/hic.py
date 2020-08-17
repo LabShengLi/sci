@@ -66,8 +66,10 @@ class HicData:
         for line in tqdm(oF.readlines(), desc='Reading %s' % contact_file):
             (chrom1, start1, end1, chrom2,
                 start2, end2, count) = line.strip().split()
-            i = int(start1) / self.res
-            j = int(start2) / self.res
+            
+            if count.split('.')[0].isdigit() and start1.isdigit() and start2.isdigit():
+                i = int(start1) / self.res
+                j = int(start2) / self.res
 
             # Debug snnipet
             try:
@@ -123,8 +125,8 @@ class HicData:
                 node2 = self.GW_location2index[(chrom2, j*self.res)]
                 value = self.contact_matrices[(chrom1, chrom2)][i, j]
                 if value >= 1:
-                    oF.write("%d\t%d\t%f\n" % (node1, node2, value))
-                    oF.write("%d\t%d\t%f\n" % (node2, node1, value))
+                    oF.write("%d\t%d\t%f\n" % (node1, node2, np.log(value)))
+                    oF.write("%d\t%d\t%f\n" % (node2, node1, np.log(value)))
 
     def write_GW_matrix(self, mat_file, cis=False):
         rows = []
