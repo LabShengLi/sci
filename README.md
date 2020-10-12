@@ -23,7 +23,7 @@ SCI is a program to identify sub-compartments from HiC data. SCI utilizes graph 
 ## Installation 
 
 ```sh
-$ python setup.py
+$ python setup.py install
 ```
 ## Input format
 
@@ -93,7 +93,7 @@ $ cd ..
 
 3. run SCI using the following command
 ```sh
-$ python sci.py -n test -f Input_sample/SCI_input.txt -r 100000 -g chromosome_sizes/hg19.chrom.sizes -o both -s 1 -k 5
+$ python -m sci.sci -n test -f Input_sample/SCI_input.txt -r 100000 -g chromosome_sizes/hg19.chrom.sizes -o both -s 1 -k 5
 ``` 
 
 [scikit-learn]: http://scikit-learn.org/stable/
