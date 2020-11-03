@@ -77,23 +77,10 @@ SCI output sub-compartments annotation into BED format with the following fields
 
 ## Test run
 To preform test run for SCI please follow the following steps:
-1. Go the Input_sample directory
-```sh
-$ cd Input_sample
-```
-Uncompress the sample file:
-```sh
-$ gunzip SCI_input.txt.gz
-```
+The sample input sample is at: https://thejacksonlaboratory.ent.box.com/s/dwwsi2wvohfwlgmcy8qsqz473ikdp1gd
 
-2. Go back to SCI main directory
 ```sh
-$ cd ..
-```
-
-3. run SCI using the following command
-```sh
-$ python -m sci.sci -n test -f Input_sample/SCI_input.txt -r 100000 -g chromosome_sizes/hg19.chrom.sizes -o both -s 1 -k 5
+$ python -m sci.sci -n test -f Input_sample/demo_data.txt -r 100000 -g chromosome_sizes/hg19.chrom.sizes -o both -s 1 -k 5
 ``` 
 
 [scikit-learn]: http://scikit-learn.org/stable/
