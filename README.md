@@ -43,7 +43,7 @@ In order to convert .hic file into please follow the following instructions:
 export installed juicer-tools into JUICERTOOLS environment variable 
 
 ```sh
-$ cd export JUICERTOOLS=/path/to/juicer-tools
+$ export JUICERTOOLS=/path/to/juicer-tools
 ```
 
 Then, run hic2sci script to get SCI formatted input data:
@@ -52,6 +52,16 @@ Then, run hic2sci script to get SCI formatted input data:
 $ scripts/hic2sci.sh <input .hic file> <output file> <resolution> 
 ```
 
+The command to start docker container is:
+
+```sh
+docker run -it -p 8080:8080 -v <directory of the Rao_2014.hic data file>:/data sci_container
+```
+For the container, please run
+```sh
+$ export JUICERTOOLS=/sci/juicer_tools_1.22.01.jar
+$ scripts/hic2sci.sh /data/Rao_2014.hic sci_input 100
+```
 
 ## Parameters description:
 
