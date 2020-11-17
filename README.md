@@ -87,7 +87,7 @@ SCI output sub-compartments annotation into BED format with the following fields
 
 ## Test run
 To preform test run for SCI please follow the following steps:
-The sample input sample is at: https://thejacksonlaboratory.ent.box.com/s/dwwsi2wvohfwlgmcy8qsqz473ikdp1gd
+The sample input sample is at: https://thejacksonlaboratory.box.com/s/wdp09h7n8b3fozvucgaybim4zc4s18mu
 
 ```sh
 $ python -m sci.sci -n test -f Input_sample/demo_data.txt -r 100000 -g chromosome_sizes/hg19.chrom.sizes -o both -s 1 -k 5
