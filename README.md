@@ -59,7 +59,8 @@ docker run -it -p 8080:8080 -v <directory of the Rao_2014.hic data file>:/data y
 ```
 For the container, please run
 ```sh
-$ bash /sci/.bashrc
+$ export LD_LIBRARY_PATH=/sci/gsl/lib
+$ export CPPFLAGS="-I/usr/local/zlib/1.2.8-4/include"
 $ export JUICERTOOLS=/sci/juicer_tools_1.22.01.jar
 $ scripts/hic2sci.sh /data/Rao_2014.hic sci_input 100
 ```
