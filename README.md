@@ -55,14 +55,15 @@ $ scripts/hic2sci.sh <input .hic file> <output file> <resolution>
 The command to start docker container is:
 
 ```sh
-docker run -it -p 8080:8080 -v <directory of the Rao_2014.hic data file>:/data sci_container
+docker run -it -p 8080:8080 -v <directory of the Rao_2014.hic data file>:/data yuz12012/sci_container:latest
 ```
 For the container, please run
 ```sh
+$ bash /sci/.bashrc
 $ export JUICERTOOLS=/sci/juicer_tools_1.22.01.jar
 $ scripts/hic2sci.sh /data/Rao_2014.hic sci_input 100
 ```
-
+For people using singularity to load the docker container, please change the output directory with writable authority.
 ## Parameters description:
 
 
@@ -90,7 +91,7 @@ To preform test run for SCI please follow the following steps:
 The sample input sample is at: https://thejacksonlaboratory.box.com/s/wdp09h7n8b3fozvucgaybim4zc4s18mu
 
 ```sh
-$ python -m sci.sci -n test -f Input_sample/demo_data.txt -r 100000 -g chromosome_sizes/hg19.chrom.sizes -o both -s 1 -k 5
+$ python -m sci.sci -n test -f /data/demo_data.txt -r 100000 -g chromosome_sizes/hg19.chrom.sizes -o both -s 1 -k 5
 ``` 
 
 [scikit-learn]: http://scikit-learn.org/stable/
