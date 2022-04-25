@@ -59,10 +59,13 @@ docker run -it -p 8080:8080 -v <directory of the Rao_2014.hic data file>:/data y
 ```
 For the container, please run
 ```sh
-$ export LD_LIBRARY_PATH=/sci/gsl/lib
-$ export CPPFLAGS="-I/usr/local/zlib/1.2.8-4/include"
-$ export JUICERTOOLS=/sci/juicer_tools_1.22.01.jar
-$ scripts/hic2sci.sh /data/Rao_2014.hic sci_input 100
+export LD_LIBRARY_PATH=/sci/gsl/lib
+export CPPFLAGS="-I/usr/local/zlib/1.2.8-4/include"
+export JUICERTOOLS=/sci/juicer_tools_1.22.01.jar
+sh scripts/hic2sci.sh /data/Rao_2014.hic sci_input 100
+
+bash
+conda activate sci
 ```
 For people using singularity to load the docker container, please change the output directory with writable authority.
 ## Parameters description:
@@ -92,7 +95,7 @@ To preform test run for SCI please follow the following steps:
 The sample input sample is at: ftp://ftp.jax.org/zhaoyu/demo_data.txt.zip
 
 ```sh
-$ python -m sci.sci -n test -f /data/demo_data.txt -r 100000 -g chromosome_sizes/hg19.chrom.sizes -o both -s 1 -k 5
+$ python -m sci.sci -n test -f /sci-data/demo_data.txt -r 100000 -g chromosome_sizes/hg19.chrom.sizes -o both -s 1 -k 5
 ``` 
 
 [scikit-learn]: http://scikit-learn.org/stable/
