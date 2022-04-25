@@ -42,7 +42,7 @@ class Compartments:
 
         # cluster embedding
         #data = preprocessing.scale(data)
-        model = KMeans(n_clusters=k)
+        model = KMeans(n_clusters=k, random_state=12345)
         model.fit(data)
         GW_compartments = model.predict(data)
 
@@ -50,7 +50,7 @@ class Compartments:
         compartments = np.zeros(len(self.GW_meta_data))
         compartments += -10
         compartments[self.GW_toKeep] = GW_compartments
-        outfile = "%s_compartments.txt" % (self.name)
+        outfile = ("%s_compartments.txt" % (self.name))
         oF = open(outfile, "w")
         oF.write("%s\t%s\t%s\t%s\n" % ("chr", "start", "end", "compartment"))
 
