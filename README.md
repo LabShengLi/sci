@@ -54,7 +54,7 @@ $ scripts/hic2sci.sh <input .hic file> <output file> <resolution>
 
 ## Docker Container
 
-Different operating systems my require certain adjustment for the script, thus we build a docker container to solve this problem.
+Different operating systems my require certain adjustment for the script, thus we build a docker container to solve this problem. The packages are already installed thus we can directly run sci using the following commands. 
 
 The command to start docker container is:
 
@@ -66,12 +66,23 @@ For the container, please run
 export LD_LIBRARY_PATH=/sci/gsl/lib
 export CPPFLAGS="-I/usr/local/zlib/1.2.8-4/include"
 export JUICERTOOLS=/sci/juicer_tools_1.22.01.jar
-sh scripts/hic2sci.sh /data/Rao_2014.hic sci_input 100
+sh scripts/hic2sci.sh /data/Rao_2014.hic sci_input 100000
 
 bash
 conda activate sci
 ```
 For people using singularity to load the docker container, please change the output directory with writable authority.
+
+## Test run
+To preform test run for SCI please follow the following steps:
+The sample input sample is at: ftp://ftp.jax.org/zhaoyu/demo_data.txt.zip
+
+Please run the following command in sci root directory.
+
+```sh
+$ python -m sci.sci -n test -f /sci-data/demo_data.txt -r 100000 -g chromosome_sizes/hg19.chrom.sizes -o both -s 1 -k 5
+``` 
+
 ## Parameters description:
 
 
@@ -93,16 +104,6 @@ SCI output sub-compartments annotation into BED format with the following fields
 3. **end**: genomic location where sub-compartment bin ends
 4. **label**: sub-compartment unique label. Bins that do not have sub-compartment label due to low mapability are labeled with NA. 
 
-
-## Test run
-To preform test run for SCI please follow the following steps:
-The sample input sample is at: ftp://ftp.jax.org/zhaoyu/demo_data.txt.zip
-
-Please run the following command in sci root directory.
-
-```sh
-$ python -m sci.sci -n test -f /sci-data/demo_data.txt -r 100000 -g chromosome_sizes/hg19.chrom.sizes -o both -s 1 -k 5
-``` 
 
 [scikit-learn]: http://scikit-learn.org/stable/
 [Numpy]: http://www.numpy.org/
