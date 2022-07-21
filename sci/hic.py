@@ -32,9 +32,8 @@ class HicData:
     def initialize(self, chr_size_file):
         self.get_chromosomes_bin_counts(chr_size_file)
         # generate genomewide mapping
-        #for i in range(1, 23):
         for chrom in self.dChrBins:
-            #chrom = "chr%d" % i
+            
             for j in range(self.dChrBins[chrom]):
                 self.GW_meta_data.append((chrom, j*self.res,
                                           j*self.res+self.res))

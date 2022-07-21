@@ -52,6 +52,10 @@ Then, run hic2sci script to get SCI formatted input data:
 $ scripts/hic2sci.sh <input .hic file> <output file> <resolution> 
 ```
 
+## Docker Container
+
+Different operating systems my require certain adjustment for the script, thus we build a docker container to solve this problem.
+
 The command to start docker container is:
 
 ```sh
@@ -93,6 +97,8 @@ SCI output sub-compartments annotation into BED format with the following fields
 ## Test run
 To preform test run for SCI please follow the following steps:
 The sample input sample is at: ftp://ftp.jax.org/zhaoyu/demo_data.txt.zip
+
+Please run the following command in sci root directory.
 
 ```sh
 $ python -m sci.sci -n test -f /sci-data/demo_data.txt -r 100000 -g chromosome_sizes/hg19.chrom.sizes -o both -s 1 -k 5
